@@ -1,6 +1,7 @@
 package com.jessicabkelly.demos.springboot2demo.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,12 +10,11 @@ import com.jessicabkelly.demos.springboot2demo.business.NameFormatterService;
 
 @RestController
 public class DemoRestController {
-	
+
 	private NameFormatterService nameFormatterService;
 	
-	
 	@Autowired
-	public DemoRestController(NameFormatterService nameFormatterService) {
+	public DemoRestController(@Qualifier("smileyNameFormatterService") NameFormatterService nameFormatterService) {
 		super();
 		this.nameFormatterService = nameFormatterService;
 	}

@@ -13,7 +13,10 @@ import com.jessicabkelly.demos.springboot2demo.business.NameFormatterService;
 import com.jessicabkelly.demos.springboot2demo.dto.Hello;
 import com.jessicabkelly.demos.springboot2demo.repository.HelloRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 public class DemoRestController {
 
 	private NameFormatterService nameFormatterService;
@@ -33,6 +36,7 @@ public class DemoRestController {
 					nameFormatterService.formatName(name) +
 					" ID: " + helloRepository.findByName(name).getId();
 		} catch (Exception ex) {
+			log.error("Error getting by name", ex);
 			return "No data found :( ";
 		}
 	}
@@ -45,6 +49,7 @@ public class DemoRestController {
 					nameFormatterService.formatName(hello.getName()) +
 					" ID: " + hello.getId();
 		} catch (Exception ex) {
+			log.error("Error getting by id", ex);
 			return "No data found :( ";
 		}
 	}

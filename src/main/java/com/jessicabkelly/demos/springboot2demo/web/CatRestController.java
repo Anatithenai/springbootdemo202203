@@ -36,7 +36,7 @@ public class CatRestController {
 			if (cat.getId() == null) {
 				return new ResponseEntity<Cat>(new Cat(), HttpStatus.NOT_FOUND);
 			} else {
-				return new ResponseEntity<Cat>(catRepository.findByName(name), HttpStatus.OK);
+				return new ResponseEntity<Cat>(cat, HttpStatus.OK);
 			}
 		} catch (Exception ex) {
 			log.error("Error getting by name", ex);

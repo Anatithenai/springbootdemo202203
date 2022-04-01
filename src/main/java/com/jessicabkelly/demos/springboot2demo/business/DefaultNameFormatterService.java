@@ -7,7 +7,12 @@ public class DefaultNameFormatterService implements NameFormatterService {
 
 	@Override
 	public String formatName(String name) {
-		return name + "!";
+		if (name != null) {
+			return name + "!";
+		} else {
+			return null;
+		}
+		
 	}
 
 }

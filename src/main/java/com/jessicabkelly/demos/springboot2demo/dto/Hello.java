@@ -6,12 +6,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Hello {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
+	@NonNull
 	private String name;
 }

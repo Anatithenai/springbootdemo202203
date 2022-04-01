@@ -7,19 +7,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.jessicabkelly.demos.springboot2demo.dto.Hello;
+import com.jessicabkelly.demos.springboot2demo.dto.Cat;
 
 @SpringBootTest
-class HelloRepositoryTest {
+class CatRepositoryTest {
 	
 	@Autowired
-	HelloRepository helloRepository;
+	CatRepository helloRepository;
 	
 	@BeforeEach
 	void setup() {
 		helloRepository.deleteAll();
-		helloRepository.save(new Hello("Cara"));
-		helloRepository.save(new Hello("Red"));
+		helloRepository.save(new Cat("Cara"));
+		helloRepository.save(new Cat("Red"));
 	}
 
 	@Test

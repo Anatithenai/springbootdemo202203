@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Hello {
+public class Cat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

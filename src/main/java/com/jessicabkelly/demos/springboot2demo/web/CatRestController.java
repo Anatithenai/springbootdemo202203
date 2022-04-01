@@ -34,7 +34,12 @@ public class CatRestController {
 	@GetMapping(path = "/cat")
 	public ResponseEntity<Cat> getCatByName(@RequestParam(name = "name", defaultValue = "Kitty") String name) {
 		try {
-			return new ResponseEntity<Cat>(catRepository.findByName(name), HttpStatus.OK);
+			Cat cat = catRepository.findByName(name);
+			if (cat.getId() == null) {
+				return new ResponseEntity<Cat>(new Cat(), HttpStatus.NOT_FOUND);
+			} else {
+				return new ResponseEntity<Cat>(catRepository.findByName(name), HttpStatus.OK);
+			}
 		} catch (Exception ex) {
 			log.error("Error getting by name", ex);
 			return new ResponseEntity<Cat>(new Cat(), HttpStatus.NOT_FOUND);

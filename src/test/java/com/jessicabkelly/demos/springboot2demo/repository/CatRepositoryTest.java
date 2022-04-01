@@ -25,12 +25,12 @@ class CatRepositoryTest {
 	@Test
 	void testFindByNameWhenDataShouldBePresent() {
 		assertEquals("Cara", helloRepository.findByName("Cara").getName());
-		assertEquals(2, helloRepository.findByName("Red").getId());
+		assertNotNull(helloRepository.findByName("Red").getId());
 	}
 	
 	@Test
 	void testFindByNameWhenDataShouldNotBePresent() {
-		assertTrue(helloRepository.findById(123L).isEmpty());
+		assertTrue(helloRepository.findById(1234567890L).isEmpty());
 	}
 
 }

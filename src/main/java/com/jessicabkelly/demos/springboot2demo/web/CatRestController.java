@@ -20,14 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class CatRestController {
-
-	private NameFormatterService nameFormatterService;
+	
 	private CatRepository catRepository;
 	
 	@Autowired
-	public CatRestController(@Qualifier("smileyNameFormatterService") NameFormatterService nameFormatterService,
-				CatRepository catRepository) {
-		this.nameFormatterService = nameFormatterService;
+	public CatRestController(CatRepository catRepository) {
 		this.catRepository = catRepository;
 	}
 	
@@ -35,6 +32,7 @@ public class CatRestController {
 	public ResponseEntity<Cat> getCatByName(@RequestParam(name = "name", defaultValue = "Kitty") String name) {
 		try {
 			Cat cat = catRepository.findByName(name);
+			log.info("Found cat: {}", cat);
 			if (cat.getId() == null) {
 				return new ResponseEntity<Cat>(new Cat(), HttpStatus.NOT_FOUND);
 			} else {
@@ -49,7 +47,9 @@ public class CatRestController {
 	@GetMapping(path = "/cat/{id}")
 	public ResponseEntity<Cat> getCatById(@PathVariable long id) {
 		try {
-			return new ResponseEntity<Cat>(catRepository.findById(id).get(), HttpStatus.OK);
+			Cat cat = catRepository.findById(id).get();
+			log.info("Found cat: {}", cat);
+			return new ResponseEntity<Cat>(cat, HttpStatus.OK);
 		} catch (Exception ex) {
 			log.error("Error getting by name", ex);
 			return new ResponseEntity<Cat>(new Cat(), HttpStatus.NOT_FOUND);
@@ -57,7 +57,7 @@ public class CatRestController {
 	}
 	
 	@PostMapping(path = "/cat")
-	public ResponseEntity<Cat> postHello(@RequestBody Cat cat) {
+	public ResponseEntity<Cat> postCat(@RequestBody Cat cat) {
 		try {
 			cat = catRepository.save(cat);
 			return new ResponseEntity<Cat>(cat, HttpStatus.CREATED);

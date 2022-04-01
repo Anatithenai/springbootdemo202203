@@ -2,6 +2,7 @@ package com.jessicabkelly.demos.springboot2demo.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,15 +14,23 @@ class HelloRepositoryTest {
 	
 	@Autowired
 	HelloRepository helloRepository;
-
-	@Test
-	void test() {
+	
+	@BeforeEach
+	void setup() {
+		helloRepository.deleteAll();
 		helloRepository.save(new Hello("Cara"));
 		helloRepository.save(new Hello("Red"));
-		assertEquals(2, helloRepository.count());
+	}
+
+	@Test
+	void testFindByNameWhenDataShouldBePresent() {
 		assertEquals("Cara", helloRepository.findByName("Cara").getName());
 		assertEquals(2, helloRepository.findByName("Red").getId());
-		assertEquals(true, helloRepository.findById(123L).isEmpty());
+	}
+	
+	@Test
+	void testFindByNameWhenDataShouldNotBePresent() {
+		assertTrue(helloRepository.findById(123L).isEmpty());
 	}
 
 }
